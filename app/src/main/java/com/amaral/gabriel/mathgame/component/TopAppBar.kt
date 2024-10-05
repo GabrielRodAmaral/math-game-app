@@ -17,10 +17,12 @@ import com.amaral.gabriel.mathgame.ui.theme.green
 fun TopAppBar(
     modifier: Modifier = Modifier,
     title: String = "Math game",
-    containerColor: Color = green
+    containerColor: Color = green,
+    navIcon: @Composable () -> Unit = {},
 ) {
     TopAppBar(
         modifier = modifier,
+        navigationIcon = navIcon,
         title = {
             Text(
                 text = title,
