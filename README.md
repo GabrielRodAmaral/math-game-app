@@ -27,4 +27,8 @@ Bem-vindo ao repositório do **Math Game**. Este é um aplicativo Android desenv
 - **Jetpack Compose**: Utilizado para a criação de interfaces nativas no Android.
 - **MVVM (Model-View-ViewModel)**: Arquitetura utilizada para separar responsabilidades e manter a UI desacoplada da lógica de negócio
 
+### Contribuindo
+
+**Contribuições são bem-vindas!** Sinta-se à vontade para abrir issues ou pull requests.
+
 #### Desenvolvido por Gabriel Amaral
