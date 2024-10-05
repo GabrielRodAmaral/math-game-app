@@ -15,7 +15,7 @@ Bem-vindo ao repositório do **Math Game**. Este é um aplicativo Android desenv
 
 - O jogador escolhe uma categoria (ex.: Subtração).
 - Recebe perguntas relacionadas à operação matemática escolhida.
-- Tem 1 minuto para responder o cada pergunta.
+- Tem 30 segundos para responder o cada pergunta.
 - O jogador começa com 3 vidas.
 - Para cada resposta correta, ganha pontos.
 - Para cada resposta errada, perde uma vida.
