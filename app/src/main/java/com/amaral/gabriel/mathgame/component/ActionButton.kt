@@ -1,7 +1,6 @@
 package com.amaral.gabriel.mathgame.component
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -15,7 +14,7 @@ import androidx.compose.ui.unit.sp
 import com.amaral.gabriel.mathgame.ui.theme.green
 
 @Composable
-fun NextOkButton(
+fun ActionButton(
     modifier: Modifier = Modifier,
     text: String,
     onClick: () -> Unit,

@@ -24,11 +24,10 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.amaral.gabriel.mathgame.R
 import com.amaral.gabriel.mathgame.component.TopAppBar
-import com.amaral.gabriel.mathgame.navigation.Route
 import com.amaral.gabriel.mathgame.ui.theme.green
 
 @Composable
-fun FirstScreen(
+fun HomeScreen(
     modifier: Modifier = Modifier,
     navController: NavController
 ) {
@@ -133,7 +132,7 @@ fun FirstScreen(
 fun FirstScreenPreview(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
     Scaffold {
-        FirstScreen(
+        HomeScreen(
             modifier = Modifier.padding(it),
             navController = navController
         )

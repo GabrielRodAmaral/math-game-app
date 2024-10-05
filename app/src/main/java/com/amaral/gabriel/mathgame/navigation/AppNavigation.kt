@@ -5,21 +5,21 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.amaral.gabriel.mathgame.screen.FirstScreen
-import com.amaral.gabriel.mathgame.screen.SecondScreen
+import com.amaral.gabriel.mathgame.screen.HomeScreen
+import com.amaral.gabriel.mathgame.screen.GameScreen
 
 @Composable
 fun AppNavigation(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
     
-    NavHost(navController = navController, startDestination = Route.FirstScreen.route) {
-        composable(Route.FirstScreen.route) {
-            FirstScreen(modifier, navController)
+    NavHost(navController = navController, startDestination = Router.HomeScreen.route) {
+        composable(Router.HomeScreen.route) {
+            HomeScreen(modifier, navController)
         }
 
-        composable(Route.SecondScreen.route) { backStackEntry ->
+        composable(Router.GameScreen.route) { backStackEntry ->
             val category = backStackEntry.arguments?.getString("category")?.toString() ?: ""
-            SecondScreen(modifier, navController, category)
+            GameScreen(modifier, navController, category)
         }
     }
 }

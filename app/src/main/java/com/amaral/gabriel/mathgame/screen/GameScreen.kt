@@ -1,5 +1,7 @@
 package com.amaral.gabriel.mathgame.screen
 
+import android.os.CountDownTimer
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,12 +12,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
-import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -23,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -31,18 +34,21 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.amaral.gabriel.mathgame.R
 import com.amaral.gabriel.mathgame.component.AnswerTextField
-import com.amaral.gabriel.mathgame.component.NextOkButton
+import com.amaral.gabriel.mathgame.component.ActionButton
 import com.amaral.gabriel.mathgame.component.QuestionText
 import com.amaral.gabriel.mathgame.component.TopAppBar
-import com.amaral.gabriel.mathgame.ui.theme.blue
+import com.amaral.gabriel.mathgame.generateQuestion
 import com.amaral.gabriel.mathgame.ui.theme.green
+import java.util.Locale
 
 @Composable
-fun SecondScreen(
+fun GameScreen(
     modifier: Modifier = Modifier,
     navController: NavController,
     category: String
 ) {
+
+    val context = LocalContext.current
 
     val life = remember {
         mutableStateOf(3)
@@ -66,6 +72,38 @@ fun SecondScreen(
 
     val isEnabled = remember {
         mutableStateOf(true)
+    }
+
+    val correctAnswer = remember {
+        mutableStateOf(0)
+    }
+
+    val totalTime = remember {
+        mutableStateOf(30000L)
+    }
+
+    val timer = remember {
+        mutableStateOf(
+            object: CountDownTimer(totalTime.value, 1000L) {
+                override fun onTick(untilFinish: Long) {
+                    remainingTime.value = String.format(Locale.getDefault(), "%02d", untilFinish/1000)
+                }
+
+                override fun onFinish() {
+                    cancel()
+                    question.value = "Desculpe, o tempo acabou!"
+                    life.value -= 1
+                    isEnabled.value = false
+                }
+
+            }.start()
+        )
+    }
+
+    LaunchedEffect(key1 = "math") {
+        val questionAndAnswer = generateQuestion(category)
+        question.value = questionAndAnswer.keys.first()
+        correctAnswer.value = questionAndAnswer.values.first()
     }
 
     Scaffold(
@@ -139,15 +177,48 @@ fun SecondScreen(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                NextOkButton(
+                ActionButton(
                     text = "Confirmar",
-                    onClick = { isEnabled.value = false },
+                    onClick = {
+                        if (answer.value.isEmpty()) {
+                            Toast.makeText(context, "Digite sua resposta", Toast.LENGTH_SHORT).show()
+                        } else {
+                            timer.value.cancel()
+
+                            isEnabled.value = false
+
+                            if (answer.value.toInt() == correctAnswer.value) {
+                                score.value += 10
+                                question.value = "Parabéns..."
+                                answer.value = ""
+                            } else {
+                                life.value -= 1
+                                question.value = "Desculpe, resposta errada."
+                            }
+                        }
+                    },
                     enabled = isEnabled.value
                 )
 
-                NextOkButton(
+                ActionButton(
                     text = "Próxima",
-                    onClick = { isEnabled.value = true },
+                    onClick = {
+                        timer.value.cancel()
+
+                        if (life.value == 0) {
+                            Toast.makeText(context, "Fim de jogo", Toast.LENGTH_SHORT).show()
+                            // TODO: Result page
+                        } else {
+                            val newQuestion = generateQuestion(category)
+                            question.value = newQuestion.keys.first()
+                            correctAnswer.value = newQuestion.values.first()
+
+                            answer.value = ""
+
+                            isEnabled.value = true
+                            timer.value.start()
+                        }
+                    },
                     enabled = true
                 )
             }
@@ -160,10 +231,10 @@ fun SecondScreen(
 
 @Preview(showSystemUi = true)
 @Composable
-fun SecondScreenPreview(modifier: Modifier = Modifier) {
+fun GameScreenPreview(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
     Scaffold {
-        SecondScreen(
+        GameScreen(
             modifier = Modifier.padding(it),
             navController = navController,
             category = "add"
