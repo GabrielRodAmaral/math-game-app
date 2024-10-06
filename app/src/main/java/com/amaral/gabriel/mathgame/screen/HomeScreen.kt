@@ -24,6 +24,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.amaral.gabriel.mathgame.R
 import com.amaral.gabriel.mathgame.component.TopAppBar
+import com.amaral.gabriel.mathgame.navigation.Router
 import com.amaral.gabriel.mathgame.ui.theme.green
 
 @Composable
@@ -54,7 +55,7 @@ fun HomeScreen(
 
             Button(
                 onClick = {
-                    navController.navigate("SecondScreen/add")
+                    navController.navigate(Router.GameScreen.create("add"))
                 },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = green
@@ -71,7 +72,7 @@ fun HomeScreen(
 
             Button(
                 onClick = {
-                    navController.navigate("SecondScreen/sub")
+                    navController.navigate(Router.GameScreen.create("sub"))
                 },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = green
@@ -88,7 +89,7 @@ fun HomeScreen(
 
             Button(
                 onClick = {
-                    navController.navigate("SecondScreen/multi")
+                    navController.navigate(Router.GameScreen.create("multi"))
                 },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = green
@@ -105,7 +106,7 @@ fun HomeScreen(
 
             Button(
                 onClick = {
-                    navController.navigate("SecondScreen/div")
+                    navController.navigate(Router.GameScreen.create("div"))
                 },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = green

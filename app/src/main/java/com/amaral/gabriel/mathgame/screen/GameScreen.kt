@@ -38,6 +38,7 @@ import com.amaral.gabriel.mathgame.component.ActionButton
 import com.amaral.gabriel.mathgame.component.QuestionText
 import com.amaral.gabriel.mathgame.component.TopAppBar
 import com.amaral.gabriel.mathgame.generateQuestion
+import com.amaral.gabriel.mathgame.navigation.Router
 import com.amaral.gabriel.mathgame.ui.theme.green
 import java.util.Locale
 
@@ -207,7 +208,10 @@ fun GameScreen(
 
                         if (life.value == 0) {
                             Toast.makeText(context, "Fim de jogo", Toast.LENGTH_SHORT).show()
-                            // TODO: Result page
+
+                            navController.navigate(Router.ResultScreen.create(score.value)) {
+//                                popUpTo(route = Router.HomeScreen.route) { inclusive = false }
+                            }
                         } else {
                             val newQuestion = generateQuestion(category)
                             question.value = newQuestion.keys.first()
