@@ -1,4 +1,4 @@
-package com.amaral.gabriel.mathgame.component
+package com.amaral.gabriel.mathgame.ui.component
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -20,12 +20,13 @@ import com.amaral.gabriel.mathgame.ui.theme.green
 @Composable
 fun AnswerTextField(
     modifier: Modifier = Modifier,
-    text: MutableState<String>
+    text: String,
+    onTextChange: (String) -> Unit = {}
 ) {
 
     TextField(
-        value = text.value,
-        onValueChange = { text.value = it },
+        value = text,
+        onValueChange = { onTextChange(it) },
         label = { Text(text = "Digite sua resposta") },
         colors = TextFieldDefaults.colors(
             unfocusedLabelColor = Color.White,
