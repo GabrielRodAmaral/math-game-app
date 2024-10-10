@@ -61,7 +61,7 @@ fun HomeScreen(
                     containerColor = green
                 ),
                 shape = RoundedCornerShape(8.dp),
-                modifier = Modifier.size(200.dp, 64.dp)
+                modifier = Modifier.size(216.dp, 64.dp)
             ) {
                 Text(
                     text = "Adição",
@@ -78,7 +78,7 @@ fun HomeScreen(
                     containerColor = green
                 ),
                 shape = RoundedCornerShape(8.dp),
-                modifier = Modifier.size(200.dp, 64.dp)
+                modifier = Modifier.size(216.dp, 64.dp)
             ) {
                 Text(
                     text = "Subtração",
@@ -95,7 +95,7 @@ fun HomeScreen(
                     containerColor = green
                 ),
                 shape = RoundedCornerShape(8.dp),
-                modifier = Modifier.size(200.dp, 64.dp)
+                modifier = Modifier.size(216.dp, 64.dp)
             ) {
                 Text(
                     text = "Multiplicação",
@@ -112,7 +112,7 @@ fun HomeScreen(
                     containerColor = green
                 ),
                 shape = RoundedCornerShape(8.dp),
-                modifier = Modifier.size(200.dp, 64.dp)
+                modifier = Modifier.size(216.dp, 64.dp)
             ) {
                 Text(
                     text = "Divisão",
